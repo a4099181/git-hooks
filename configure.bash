@@ -21,7 +21,7 @@ function save-storage()
                 local checked=$(( $stored & $expected ))
 
                 if [ $checked -eq $expected ]; then
-                    echo ${functions[findex]} >> build\~/${hooks[hindex]}
+                    echo "${functions[findex]} \$1" >> build\~/${hooks[hindex]}
                 fi
             done
         fi
