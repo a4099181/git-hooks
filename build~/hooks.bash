@@ -22,6 +22,8 @@ function assert-handel-tests
 function comment-with-branch
 {
     # from https://gist.github.com/bartoszmajsak/1396344
+    # with minimal changes like:
+    # + sed -e "s/[a-z]\{3\}\([0-9]\{5\}\)/\1/" -e "s/^[^\/]\+\/\(.*\)/\1/"
 
     # This way you can customize which branches should be skipped when
     # prepending commit message.
@@ -29,7 +31,7 @@ function comment-with-branch
       BRANCHES_TO_SKIP=(master develop test)
     fi
 
-    BRANCH_NAME=$(git symbolic-ref --short HEAD)
+    BRANCH_NAME=$(git symbolic-ref --short HEAD | sed -e "s/[a-z]\{3\}\([0-9]\{5\}\)/\1/" -e "s/^[^\/]\+\/\(.*\)/\1/")
     BRANCH_NAME="${BRANCH_NAME##*/}"
 
     BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
