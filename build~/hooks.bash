@@ -16,7 +16,11 @@ function assert-utf-8-encoding()
 
 function assert-handel-tests
 {
-    make clean drop handel test
+    if [ `git rev-list HEAD..a6b83db8ebc65b11e913e38188a02a4fc27a52a2 -n 1 --count` -eq 1 ]; then
+        make clean drop handel test
+    else
+        make clean drop mini test TestAssembly=Soneta.Handel.Test
+    fi
 }
 
 function comment-with-branch
