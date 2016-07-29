@@ -14,6 +14,11 @@ function assert-utf-8-encoding()
     fi
 }
 
+function assert-mini-tests
+{
+    make clean drop mini test
+}
+
 function assert-handel-tests
 {
     if [ `git rev-list HEAD..a6b83db8ebc65b11e913e38188a02a4fc27a52a2 -n 1 --count` -eq 1 ]; then
