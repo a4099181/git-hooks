@@ -12,7 +12,7 @@ The goal of this project are:
 
 ## How to install?
 
-This project is designed to include it as submodule to your git repository. 
+This project is designed to include it as submodule to your git repository.
 So all you have to do is:
 
 ```shell
@@ -21,14 +21,15 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
 
 ## Requirements
 
-- git
-- GNU make
+- [git](https://git-scm.com/)
+- [GNU make](https://www.gnu.org/software/make/)
 - your own git repository
 
 ## How the project is organized?
 
 - _Makefile_ - gateway to all possible operations
 
+  Available targets are:
   - *configure*       - interactive setup
   - *install*         - installs configured hooks
   - *uninstall*       - removes installed hooks
@@ -36,7 +37,7 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
   - *reinstall*
 
 - _configure.bash_    - setup script
-- build~/_hooks.bash_ - single file as functions' container. 
+- build~/_hooks.bash_ - single file as functions' container.
   This is where all hook implementations are stored.
 
 ## How to use it from scratch
@@ -51,7 +52,7 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
 
 - add git-hooks as submodule
 
-  ```shell 
+  ```shell
   (master) ~/githooks-show $ git submodule add https://github.com/a4099181/git-hooks.git .githooks
   Cloning into '~/githooks.show/.githooks'...
   ```
@@ -67,7 +68,7 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
   Your choice:
   ```
 
-- type `1` to choose a hook you want to configure or 
+- type `1` to choose a hook you want to configure or
   type `2` to choose a function to assign to hook you will choose then.
 
   Let's choose a hook, so `1` is typed to console:
@@ -95,11 +96,11 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
   Your choice:
   ```
 
-  The list of functions is based on the contect of the `build~/hooks.bash` file. 
+  The list of functions is based on the content of the `build~/hooks.bash` file.
   Shortly, this is a list of functions in that file.
 
   Let's choose a assert-utf8-encoding function, so `0` is typed to console:
-  
+
   ```shell
   Your choice: 0
   0)...................Quit  1)............Choose hook  2)........Choose function  3)................Preview
@@ -107,7 +108,7 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
   Your choice:
   ```
 
-  That's the moment when first hook is configured. All above configures envoding validation on commit. 
+  That's the moment when first hook is configured. All above configures encoding validation on commit.
   The only one permitted encoding is UTF-8.
 
   Setup is now in the entry point. You can repeat operation to setup another hook and function.
@@ -120,9 +121,9 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
 
   pre-commit...............assert-utf-8-encoding
   0)...................Back  1)...................Save
-  
+
   Your choice:
-  ``` 
+  ```
 
   The list confirms the changes have been made. Let's save it, so `1` is typed to console:
 
@@ -130,7 +131,7 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
   Your choice: 1
   Saving hook files
     pre-commit
-  (master) ~/githooks-show/.githooks $ 
+  (master) ~/githooks-show/.githooks $
   ```
 
 - The work done is saved, setup quits. Let's check the workspace:
@@ -147,7 +148,7 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
   └── README.md
   ```
 
-  Folder `build~` is the workspace. Saved setup makes git hook files (`pre-commit`).
+  Folder `build~` is the workspace. Saved setup makes git hook files (ie: `pre-commit`).
   These files are ready, but not yet installed. Let's install them:
 
   ```shell
@@ -169,15 +170,15 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
   (master) ~/githooks-show $ git commit -m "New file"
   Invalid encoding detected.
   file: binary
-  (master) ~/githooks-show $ 
+  (master) ~/githooks-show $
   ```
 
 ## How it works?
 
-  Setup tool generates git hook files. Each file is simple script. 
+  Setup tool generates git hook files. Each file is simple script.
   It includes all the code within `hooks.bash` and simply invokes selected function.
 
-  Example:
+  Example `pre-commit`:
 
   ```bash
   #!/bin/bash
@@ -185,8 +186,8 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
   assert-utf-8-encoding $1
   ```
 
-  Note, that `hooks.bash` is copied to `.git/hooks`. 
-  It provides that hooks will work also when your code is far behind the moment 
+  Note, that `hooks.bash` is copied to `.git/hooks`.
+  It provides that hooks will work also when your code is far behind the moment
   when git-hooks was introduced to your repository.
 
   It also may be a disadvantage.
@@ -195,8 +196,8 @@ git submodule add https://github.com/a4099181/git-hooks.git <local-path>
 ## TODO
 
 - Split _hooks.bash_ into separate file for each single function
-- Don't copy `hooks.bash` to `.git/hooks` folder. 
-- Initialize setup with currently installed hooks. 
+- Don't copy `hooks.bash` to `.git/hooks` folder.
+- Initialize setup with currently installed hooks.
 
   Currently every setup session needs complete configuration because it starts empty.
 
